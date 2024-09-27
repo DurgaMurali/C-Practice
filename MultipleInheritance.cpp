@@ -19,6 +19,11 @@ class car
         this->mileage = mileage;
     }
     
+    ~car()
+    {
+        std::cout << "car destructor" << std::endl;
+    }
+    
     void show()
     {
         std::cout << "Seat Capacity = " << seat_capacity << ", mileage = " << mileage << std::endl;
@@ -39,6 +44,11 @@ class fuel_car : virtual public car
     {
         std::cout << "fuel_car parameterized constructor" << std::endl;
         this->tank_capacity = tank_capacity;
+    }
+    
+    ~fuel_car()
+    {
+        std::cout << "fuel_car destructor" << std::endl;
     }
     
     /*void show()
@@ -64,6 +74,11 @@ class electric_car : virtual public car
         this->battery_capacity = battery_capacity;
     }
     
+    ~electric_car()
+    {
+        std::cout << "electric_car destructor" << std::endl;
+    }
+    
     /*void show()
     {
         car::show();
@@ -74,8 +89,9 @@ class electric_car : virtual public car
 class hybrid_car : public fuel_car, public electric_car
 {
     public:
-    // If car's parameterized constructor is not called here, car's default constructor will be called after adding virtual keyword although fuel_car and electric_car explicitly call parameterized constructor
-    // Although car() is called last, it's the base class and its constructor is called first! Then, it follows order
+    // If the car's parameterized constructor is not called here, the car's default constructor will be called after adding the virtual keyword although fuel_car and electric_car explicitly call the parameterized constructor
+    // Although car() is called last, it's the base class and its constructor is called first! Then, it follows the order
+    // Notice that destructors are called in the reverse order
     hybrid_car(int num_seats, int mileage, int tank_capacity, int battery_capacity) : fuel_car(num_seats, mileage, tank_capacity), electric_car(num_seats, mileage, battery_capacity), car(num_seats, mileage)
     {
     }
