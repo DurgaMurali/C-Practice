@@ -1,4 +1,4 @@
-include <iostream>
+#include <iostream>
 
 // Template class
 template <typename T, typename U = float>
@@ -47,6 +47,34 @@ T complex<T, U>::count = (T)0;
 template <typename T, typename U>
 char complex<T, U>::i = 'i';
 
+// Template class specialization for short datatype
+template<>
+class complex<short, short>
+{
+    private:
+    int real;
+    int imaginary;
+    
+    public:
+    static int count;
+    
+    complex(int real, int imaginary)
+    {
+        std::cout << "Constructor of complex<short, short>" << std::endl;
+        this->real = real;
+        this->imaginary = imaginary;
+        count++;
+    }
+    
+    void print()
+    {
+        std::cout << "Real = " << this->real << ", imaginary = " << this->imaginary << ", count = " << count << std::endl;
+    }
+};
+
+template<>
+int complex<short, short>::count = 0;
+
 // Template function
 template <typename T>
 T isGreater(T a, T b)
@@ -54,7 +82,7 @@ T isGreater(T a, T b)
     return (a>b) ? a : b;
 }
 
-// Template specialization for string datatype
+// Template function specialization for string datatype
 template<>
 std::string isGreater(std::string a, std::string b)
 {
@@ -85,6 +113,9 @@ int main()
     std::cout << complex<int, int>::i << std::endl;
     std::cout << complex<int>::i << std::endl;
     std::cout << complex<float, int>::i << std::endl;
+    
+    complex<short, short> obj3(22, 44);
+    obj3.print();
     
     return 0;
 }
