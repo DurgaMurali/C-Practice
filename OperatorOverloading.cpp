@@ -104,6 +104,9 @@ int main()
     
     complex<int> obj6 = (*obj1) + obj5;
     obj6.print();
+
+    delete obj1;
+    delete obj3;
     
     return 0;
 }
