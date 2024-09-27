@@ -30,6 +30,7 @@ void vehicle::set_mode_of_transportation(int mode_of_transportation)
     std::cout << "Pure virtual functions can also be defined in the abstract class, but outside the class definition" << std::endl;
 }
 
+// Simple inheritance
 class four_wheeler : public vehicle
 {
     protected:
@@ -55,6 +56,7 @@ class four_wheeler : public vehicle
     }
 };
 
+// Multi-level inheritance
 class car : public four_wheeler
 {
     bool infotainment;
@@ -94,6 +96,7 @@ class car : public four_wheeler
     }
 };
 
+// Hierarchical inheritance
 class jeep : public four_wheeler
 {
     std::string engine_type;
