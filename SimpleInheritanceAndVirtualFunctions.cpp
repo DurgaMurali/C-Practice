@@ -131,6 +131,8 @@ int main()
     s2->set_num_seats(4); // because method is not made virtual, base class pointer cannot access derived class method
     //s2->set_infotainment(true); // Compiler error, it can't access members of car class
     //s2->set_off_roading(false); // Compiler error, it can't access members of car class
+
+    delete suv;
     
     return 0;
 }
