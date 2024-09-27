@@ -40,6 +40,13 @@ void area(const int *length)
     std::cout << "Const function area of square = " << length*breadth << std::endl;
 }*/
 
+// Function pointer passed as argument, and overloaded as it has same name
+int area(void (*areaInt) (int), int length)
+{
+    areaInt(length);
+    return (length*length);
+}
+
 int main()
 {
     int length = 10;
@@ -61,4 +68,10 @@ int main()
     
     void (*areaSquareConstIntPtr)(const int*) = &area;
     std::cout << typeid(areaSquareConstIntPtr).name() << std::endl;
+    
+    // Function pointer of a function that takes another function pointer as argument
+    int (*areaFuncPointer)(void (*)(int), int) = &area;
+    int sq_area = areaFuncPointer(areaSquareInt, 25);
+    std::cout << sq_area << std::endl;
+    std::cout << typeid(areaFuncPointer).name() << std::endl;
 }
