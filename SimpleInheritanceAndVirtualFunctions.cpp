@@ -120,17 +120,17 @@ int main()
     c1.set_num_seats(5);
     
     four_wheeler *suv = new car();
-    //suv->set_infotainment(true); // Compiler error, it can't access members of car class
-    //suv->set_off_roading(false); // Compiler error, it can't access members of car class
+    //suv->set_infotainment(true); // Compiler error, it can't access members of the car class
+    //suv->set_off_roading(false); // Compiler error, it can't access members of the car class
     suv->set_cargo_space(16.5);
-    suv->set_num_seats(6); // because method is not made virtual, base class pointer cannot access derived class method
+    suv->set_num_seats(6); // vTable has no pointer because this method is not made virtual, resulting in static binding to the base class method
     
     car c2;
     four_wheeler *s2 = &c2;
     s2->set_cargo_space(15.2);
-    s2->set_num_seats(4); // because method is not made virtual, base class pointer cannot access derived class method
-    //s2->set_infotainment(true); // Compiler error, it can't access members of car class
-    //s2->set_off_roading(false); // Compiler error, it can't access members of car class
+    s2->set_num_seats(4); // vTable has no pointer because this method is not made virtual, resulting in static binding to the base class method
+    //s2->set_infotainment(true); // Compiler error, it can't access members of the car class
+    //s2->set_off_roading(false); // Compiler error, it can't access members of the car class
 
     delete suv;
     
