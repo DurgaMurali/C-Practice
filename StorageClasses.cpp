@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <iostream>
 
 std::string university;
@@ -53,9 +61,10 @@ int main()
     s1.print();
     std::cout << "Total GPA = " << student::total_gpa << std::endl;
     
+    const student s2("Joe", "19800", 2);
+    s2.add_course(); // Allowed because num_courses is mutable 
+    //s2.print(); // Not allowed
     student::change_gpa(5.0);
-    student s2("Joe", "19800", 2);
-    s2.print();
     std::cout << "Total GPA = " << s2.total_gpa << std::endl;
 
     return 0;
