@@ -2,6 +2,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <atomic>
 
 template <typename T>
 class thread_safe_stack
@@ -40,20 +41,21 @@ class thread_safe_stack
 int main()
 {
     thread_safe_stack<int> s;
+    thread_local std::atomic<int> thread_id(-1);
     
-    auto populate_stack = [](thread_safe_stack<int> &s){
-      //std::cout << "Push elements" << std::endl; 
+    auto populate_stack = [](thread_safe_stack<int> &s, int id){
+        thread_id = id;
+        std::cout << "Thread ID = " << thread_id << std::endl;
+
       for(int i=1; i<=100; ++i)
         s.push(i); // The 3 threads first push 300 elements together
        
-      //std::cout << "Pop elements" << std::endl;  
       for(int i=1; i<=90; ++i)
         s.pop(); // Then pop 270 elements together
       
-      //std::cout << "Top elements" << std::endl;    
       for(int i=1; i<=10; ++i)
       {
-        std::cout << s.top() << std::endl; // Prints the last 30 elements
+        std::cout << s.top() << std::endl; // Prints the last 30 elements in the stack, this order can vary in each run based on thread execution
         s.pop();
       }
       std::cout << "-------------------------------------" << std::endl;
@@ -62,7 +64,7 @@ int main()
     std::vector<std::thread> th;
     for(int i=1; i<=3; ++i)
     {
-        th.push_back(std::thread(populate_stack, std::ref(s)));
+        th.push_back(std::thread(populate_stack, std::ref(s), i));
     }
     
     for(int i=0; i<3; ++i)
