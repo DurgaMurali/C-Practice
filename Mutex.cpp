@@ -2,7 +2,6 @@
 #include <vector>
 #include <thread>
 #include <mutex>
-#include <atomic>
 
 template <typename T>
 class thread_safe_stack
@@ -41,7 +40,7 @@ class thread_safe_stack
 int main()
 {
     thread_safe_stack<int> s;
-    thread_local std::atomic<int> thread_id(-1);
+    thread_local int thread_id = -1;
     
     auto populate_stack = [](thread_safe_stack<int> &s, int id){
         thread_id = id;
