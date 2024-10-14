@@ -16,9 +16,15 @@ class singleton
     int count;
     static void getInstance(singleton **inst)
     {
-        std::cout << "getInstance" << std::endl;
-        std::lock_guard<std::mutex> lck(mtx);
-        if(instance == nullptr)
+        if(instance != nullptr)
+        {
+            std::cout << "Instance already created" << std::endl;
+            *inst = instance;
+            return;
+        }
+        
+        std::lock_guard<std::mutex> lck(mtx); // lock_guard blocks until mutex is acquired
+        if(instance == nullptr) // Check again to ensure that instance was not created while waiting for mutex
         {
             std::cout << "creating new instance" << std::endl;
             instance = new singleton();
