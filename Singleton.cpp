@@ -14,6 +14,13 @@ class singleton
     
     public:
     int count;
+    
+    // Make copy constructor unusable
+    singleton (const singleton& obj) = delete;
+    
+    // Make copy by assignment operator unusable
+    void operator=(const singleton& obj) = delete;
+    
     static void getInstance(singleton **inst)
     {
         if(instance != nullptr)
